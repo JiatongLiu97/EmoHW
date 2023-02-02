@@ -1,0 +1,60 @@
+package Models;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Game {
+	private Team team1;
+	private Team team2;
+	private List<Goal> goals;
+	
+	public Game(Team team1, Team team2, List<Goal> goals) {
+		this.team1 = team1;
+		this.team2 = team2;
+		this.goals = goals;
+	}
+	
+	public void start() {
+		int goalsNum = (int)(Math.random()*8);
+		int team1Size = team1.players.size();
+		int team2Size = team2.players.size();
+		for(int i = 1; i <= goalsNum; ++i) {
+			// Team1 goals
+			if(Math.random() <= 0.5) {
+				int playerInx1 = (int)(Math.random()*team1Size);
+				Player playerGoal1 = team1.players.get(playerInx1);
+				int randMin = (int)(Math.random()*91);
+				int ranSec = (int)(Math.random()*60);
+				double time = randMin + (double)ranSec/100;
+				goals.add(new Goal(team1, playerGoal1, time));
+			}
+			// Team2 goals
+			else {
+				int playerInx2 = (int)(Math.random()*team2Size);
+				Player playerGoal2 = team2.players.get(playerInx2);
+				int randMin = (int)(Math.random()*91);
+				int ranSec = (int)(Math.random()*60);
+				double time = randMin + (double)ranSec/100;
+				goals.add(new Goal(team2, playerGoal2, time));
+			}
+		}
+	}
+	
+	public void displayResult() {
+		int team1Goals = 0;
+		int team2Goals = 0;
+		for(Goal goal: goals) {
+			if(goal.team == team1) ++team1Goals;
+			else ++team2Goals;
+			System.out.println("Goal by: " + goal.player.name + " at " + goal.time);
+		}
+		if(team1Goals == team2Goals) {
+			System.out.println("Tie");
+		}
+		else if(team1Goals > team2Goals) {
+			System.out.println("Team1 wins");
+		}
+		else {
+			System.out.println("Team2 wins");
+		}
+	}
+}

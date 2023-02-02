@@ -1,0 +1,35 @@
+import java.util.List;
+
+import Goal;
+import Team;
+
+public class Game {
+	private Team team1;
+	private Team team2;
+	private List<Goal> goals;
+	
+	public Game(Team team1, Team team2, List<Goal> goals) {
+		this.team1 = team1;
+		this.team2 = team2;
+		this.goals = goals;
+	}
+	
+	public void displayResult() {
+		int team1Goals = 0;
+		int team2Goals = 0;
+		for(Goal goal: goals) {
+			if(goal.team == team1) ++team1Goals;
+			else ++team2Goals;
+			System.out.println("Goal by: " + goal.player.name + " at " + goal.time);
+		}
+		if(team1Goals == team2Goals) {
+			System.out.println("Tie");
+		}
+		else if(team1Goals > team2Goals) {
+			System.out.println("Team1 wins");
+		}
+		else {
+			System.out.println("Team2 wins");
+		}
+	}
+}
